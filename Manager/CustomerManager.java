@@ -11,54 +11,52 @@ import java.util.stream.Collectors;
  */
 public class CustomerManager extends BaseManager<Customer> {
 
-    // phân nhóm khách theo quận/huyện để truy vấn nhanh
+    //Group customers by district for quick query
     private final Map<String, List<Customer>> districtMap = new HashMap<>();
 
-    // === CRUD kế thừa và mở rộng để đồng bộ districtMap ===
     @Override
-    public void add(Customer c) {
-        super.add(c);
+    public void Add(Customer c) {
+        super.Add(c);
         districtMap.computeIfAbsent(c.getDistrict(), k -> new ArrayList<>()).add(c);
     }
 
     @Override
-    public void update(String id, Customer c) {
+    public void Update(String id, Customer c) {
         Customer old = findById(id);
         if (old != null) {
             List<Customer> oldList = districtMap.get(old.getDistrict());
             if (oldList != null) oldList.remove(old);
         }
-        super.update(id, c);
+        super.Update(id, c);
         districtMap.computeIfAbsent(c.getDistrict(), k -> new ArrayList<>()).add(c);
     }
 
     @Override
-    public void delete(String id) {
+    public void Delete(String id) {
         Customer old = findById(id);
         if (old != null) {
             List<Customer> oldList = districtMap.get(old.getDistrict());
             if (oldList != null) oldList.remove(old);
         }
-        super.delete(id);
+        super.Delete(id);
     }
 
-    // === APIs riêng cho Customer ===
-
-    /** Top-k khách theo tên (asc=true: A→Z; false: Z→A) */
+    //Personal Methods
+    // Top-K customer according to name (asc=true: A→Z; false: Z→A)
     public List<Customer> getTopKCustomers(int k, boolean asc) {
         Comparator<Customer> cmp = Comparator.comparing(Customer::getName);
         if (!asc) cmp = cmp.reversed();
         return entities.stream().sorted(cmp).limit(k).collect(Collectors.toList());
     }
 
-    /** Liệt kê khách thuộc một quận/huyện */
+    // List customer in a district
     public List<Customer> listCustomersInDistrict(String district) {
         return Collections.unmodifiableList(
                 districtMap.getOrDefault(district, Collections.emptyList())
         );
     }
 
-    /** Dựng lại districtMap (gọi khi load dữ liệu từ file chẳng hạn) */
+
     public void rebuildDistrictMap() {
         districtMap.clear();
         for (Customer c : entities) {

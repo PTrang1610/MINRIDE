@@ -3,10 +3,10 @@ package Models;
 import Interface.IEntity;
 
 public class Customer implements IEntity {
-    private final String id;
+    private String id;
     private String name;
     private String district;   // quận/huyện
-    private double x;          // tọa độ
+    private double x;          // tọa độ    
     private double y;
 
     public Customer(String id, String name, String district, double x, double y) {
