@@ -5,10 +5,6 @@ import Models.Customer;
 import java.util.*;
 import java.util.stream.Collectors;
 
-/**
- * Quản lý Customer: CRUD + truy vấn theo district + top-K theo tên.
- * Kế thừa BaseManager<Customer> đã có sẵn trong repo của bạn.
- */
 public class CustomerManager extends BaseManager<Customer> {
 
     //Group customers by district for quick query
