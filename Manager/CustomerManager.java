@@ -83,7 +83,7 @@ public class CustomerManager extends BaseManager<Customer> {
         }
     }
     public List<Customer> getTopKCustomers(int k, boolean ascending) {
-        List<Customer> sorted = new java.util.ArrayList<>(entities);
+        List<Customer> sorted = new ArrayList<>(entities);
         // Sort by ID
         sorted.sort((c1, c2) -> ascending ? c1.getId().compareTo(c2.getId()) 
                                             :c2.getId().compareTo(c1.getId()));
