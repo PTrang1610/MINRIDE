@@ -82,4 +82,11 @@ public class CustomerManager extends BaseManager<Customer> {
             addToDistrictIndex(c);
         }
     }
+    public List<Customer> getTopKCustomers(int k, boolean ascending) {
+        List<Customer> sorted = new java.util.ArrayList<>(entities);
+        // Sort by ID
+        sorted.sort((c1, c2) -> ascending ? c1.getId().compareTo(c2.getId()) 
+                                            :c2.getId().compareTo(c1.getId()));
+        return sorted.subList(0, Math.min(k, sorted.size()));
+    }
 }
