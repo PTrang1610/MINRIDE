@@ -132,7 +132,7 @@ public class DriverManager extends BaseManager<Driver>
         quickSort(list,0,list.size()-1,ascending);
         entities.clear();
         entities.addAll(list);
-        System.out.println("Danh sách tài xế được sắp xếp theo rating"+(ascending?" tăng dần.":"giảm dần."));
+        System.out.println("Danh sách tài xế được sắp xếp theo rating"+(ascending?" tăng dần.":" giảm dần."));
     }
 
     // The method you provided: Tìm tài xế gần trong bán kính r

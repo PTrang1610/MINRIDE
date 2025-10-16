@@ -42,7 +42,5 @@ public class Driver implements IEntity
     public String toString()
     {
         return String.format("%-5s | %-10s | %-6.1f | (%.1f, %.1f) |", id, name, rating, x, y);
-
-
     }
 }
