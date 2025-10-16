@@ -80,7 +80,6 @@ public class Test {
         System.out.println("4. Tìm tài xế phù hợp");
         System.out.println("5. Đặt xe");
         System.out.println("6. Tự động ghép cặp");
-        System.out.println("7. Hoàn tác thao tác trước (Undo)");
         System.out.println("0. Thoát");
         System.out.print("Chọn chức năng: ");
     }
@@ -358,6 +357,17 @@ public class Test {
                     List<Customer> list = customerManager.listCustomersInDistrict(district);
                     System.out.println("Có " + list.size() + " khách hàng trong quận " + district);
                     TablePrinter.printCustomers(list);
+                }
+                case "5" -> {
+                    try {
+                        System.out.print("Nhập k: ");
+                        int k = Integer.parseInt(sc.nextLine().trim());
+                        System.out.print("Hiển thị đầu danh sách? (true/false): ");
+                        boolean asc = Boolean.parseBoolean(sc.nextLine().trim());
+                        TablePrinter.printCustomers(customerManager.getTopKCustomers(k, asc));
+                    } catch (Exception e) {
+                        System.out.println("Lỗi: " + e.getMessage());
+                    }
                 }
                 default -> System.out.println("Lựa chọn không hợp lệ!");
             }
