@@ -3,29 +3,31 @@ import java.util.*;
 
 import Models.Customer;
 import Models.Driver;
+import Utils.TablePrinter;
+
 public class DriverManager extends BaseManager<Driver>
 {
     private List<Driver> drivers = new LinkedList<>();
     // Thêm
     public void addDriver(Driver driver) {
         super.Add(driver);
-        System.out.println(" Driver added successfully " + driver.getName() + " (ID: " + driver.getId() + ")");
+        System.out.println(" Đã thêm thành công tài xế:" + driver.getName() + " (ID: " + driver.getId() + ")");
     }
 
     //Xóa
     public void deleteDriverById(String id) {
         Driver removedDriver = findById(id);
         super.Delete(id);
-        System.out.println("Driver deleted successfully: " + removedDriver.getName() + " (ID: " + id + ")");
+        System.out.println("Đã xóa thành công tài xế: " + removedDriver.getName() + " (ID: " + id + ")");
     }
 
     // Hiển thị tất cả tài xế
     public void displayAllDrivers() {
         if (entities.isEmpty()) {
-            System.out.println("The driver list is empty!");
+            System.out.println("Danh sách tài xế hiện đang trống!");
             return;
         }
-        System.out.println("Driver list");
+        System.out.println("Danh sách tài xế:");
         for (Driver d : entities) {
             System.out.println(d);
         }
@@ -36,12 +38,12 @@ public class DriverManager extends BaseManager<Driver>
     {
         if (entities.isEmpty())
         {
-            System.out.println("The driver list is empty ! ");
+            System.out.println("Danh sách tài xế hiện đang trống! ");
             return ;
         }
         int size=entities.size();
         int limit=Math.min(k,size);
-        System.out.println(" Top "+limit+" drivers "+(start? " from the start:": "from the end:"));
+        System.out.println(" Top "+limit+" tài xế "+(start? " từ đầu:": "từ cuối:"));
         if (start)
         {
             for (int i=0; i<limit;i++)
@@ -77,7 +79,7 @@ public class DriverManager extends BaseManager<Driver>
         } else {
             Update(idIfDuplicate, updated);
         }
-        System.out.println("Driver information updated successfully: " + updated.getName());
+        System.out.println("Cập nhật thành công thông tin tài xế: " + updated.getName());
     }
     // Lấy top K tài xế theo rating
     public List<Driver> getTopKDriversRating(int k, boolean highestFirst)
@@ -123,14 +125,15 @@ public class DriverManager extends BaseManager<Driver>
     {
         if (entities.isEmpty())
         {
-            System.out.println("The driver list is empty!");
+            System.out.println("Danh sách tài xế hiện đang trống!");
             return ;
         }
         List<Driver>   list= new ArrayList<>(entities);
         quickSort(list,0,list.size()-1,ascending);
         entities.clear();
         entities.addAll(list);
-        System.out.println("Driver list sorted by rating in "+(ascending?"ascending order.":"descending order"));
+        System.out.println("Danh sách tài xế được sắp xếp theo rating "+(ascending?" tăng dần.":"giảm dần."));
+        TablePrinter.printDrivers(list);
     }
 
     // The method you provided: Tìm tài xế gần trong bán kính r
