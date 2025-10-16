@@ -45,10 +45,4 @@ public class Driver implements IEntity
 
 
     }
-    public double distanceTo(double cx, double cy)
-    {
-        double dx = this.x - cx;
-        double dy = this.y - cy;
-        return Math.sqrt(dx * dx + dy * dy);
-    }
 }
