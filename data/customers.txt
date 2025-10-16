@@ -1,0 +1,3 @@
+ID, Name, District, x, y
+1, Hoa, Q1, 3, 3
+2, Minh, Q3, 6, 2
