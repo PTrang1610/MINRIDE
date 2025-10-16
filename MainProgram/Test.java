@@ -343,6 +343,7 @@ public class Test {
             System.out.println("2. Cập nhật khách hàng");
             System.out.println("3. Xóa khách hàng");
             System.out.println("4. Liệt kê khách theo quận");
+            System.out.println("5. Liệt kê top k khách hàng");
             System.out.println("0. Quay lại");
             System.out.print("Chọn: ");
             String opt = sc.nextLine().trim();
