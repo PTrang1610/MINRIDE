@@ -159,12 +159,15 @@ public class Test {
                         int k = Integer.parseInt(sc.nextLine().trim());
                         System.out.print("Hiển thị đầu danh sách? (true/false): ");
                         boolean asc = Boolean.parseBoolean(sc.nextLine().trim());
-                        driverManager.displayTopKDriver(k, asc);
+                        TablePrinter.printDrivers(driverManager.getTopKDriversRating(k, asc));
                     } catch (Exception e) {
                         System.out.println("Lỗi: " + e.getMessage());
                     }
                 }
-                case "6" -> driverManager.sortByRatingQuickSort(true);
+                case "6" ->{
+                    driverManager.sortByRatingQuickSort(true);
+                    TablePrinter.printDrivers(driverManager.getAll());
+                }
                 default -> System.out.println("Lựa chọn không hợp lệ.");
             }
         }
@@ -172,7 +175,11 @@ public class Test {
 
     private static void addDriverFlow() {
         // fields: id (String), name(String), rating(double), x(double), y(double)
-        List<String> prompts = List.of("Nhập ID: ", "Nhập tên: ", "Nhập rating: ", "Nhập x: ", "Nhập y: ");
+        List<String> prompts = List.of("Nhập ID: ",
+                                        "Nhập tên: ",
+                                        "Nhập rating: ",
+                                        "Nhập x: ",
+                                        "Nhập y: ");
         // store values as strings then parse where needed
         String[] values = new String[prompts.size()];
         int idx = 0;
@@ -257,7 +264,10 @@ public class Test {
         // fields to update: name, rating, x, y
         String[] values = new String[4];
         int idx = 0;
-        List<String> prompts = List.of("Nhập tên mới: ", "Nhập rating mới: ", "Nhập x mới: ", "Nhập y mới: ");
+        List<String> prompts = List.of("Nhập tên mới: ",
+                                        "Nhập rating mới: ",
+                                        "Nhập x mới: ",
+                                        "Nhập y mới: ");
         while (idx < prompts.size()) {
             Optional<String> opt = readField(prompts.get(idx), s -> s);
             if (opt.isEmpty()) {
@@ -347,7 +357,7 @@ public class Test {
                     String district = sc.nextLine().trim();
                     List<Customer> list = customerManager.listCustomersInDistrict(district);
                     System.out.println("Có " + list.size() + " khách hàng trong quận " + district);
-                    list.forEach(System.out::println);
+                    TablePrinter.printCustomers(list);
                 }
                 default -> System.out.println("Lựa chọn không hợp lệ!");
             }
@@ -355,7 +365,11 @@ public class Test {
     }
 
     private static void addCustomerFlow() {
-        List<String> prompts = List.of("Nhập ID: ", "Nhập tên: ", "Nhập quận: ", "Nhập x: ", "Nhập y: ");
+        List<String> prompts = List.of("Nhập ID: ",
+                                        "Nhập tên: ",
+                                        "Nhập quận: ",
+                                        "Nhập x: ",
+                                        "Nhập y: ");
         String[] values = new String[prompts.size()];
         int idx = 0;
         while (idx < prompts.size()) {
@@ -403,7 +417,10 @@ public class Test {
         Customer old = customerManager.findById(id);
         if (old == null) { System.out.println("Không tìm thấy khách hàng!"); return; }
 
-        List<String> prompts = List.of("Nhập tên mới: ", "Nhập quận mới: ", "Nhập x mới: ", "Nhập y mới: ");
+        List<String> prompts = List.of("Nhập tên mới: ",
+                                        "Nhập quận mới: ",
+                                        "Nhập x mới: ",
+                                        "Nhập y mới: ");
         String[] values = new String[prompts.size()];
         int idx = 0;
         while (idx < prompts.size()) {
@@ -469,7 +486,7 @@ public class Test {
                     String driverId = sc.nextLine().trim();
                     List<Ride> rides = rideManager.getDriverRides(driverId);
                     if (rides.isEmpty()) System.out.println("Tài xế chưa có chuyến đi nào.");
-                    else rides.forEach(System.out::println);
+                    else TablePrinter.printRides(rides);
                 }
                 case "3" -> {
                     System.out.print("Nhập ID chuyến đi cần hủy: ");
@@ -488,7 +505,7 @@ public class Test {
                 case "5" -> {
                     List<Ride> history = rideManager.getAll();
                     if (history.isEmpty()) System.out.println("Chưa có chuyến đi nào!");
-                    else history.forEach(System.out::println);
+                    else TablePrinter.printRides(history);
                 }
                 default -> System.out.println("Lựa chọn không hợp lệ!");
             }
