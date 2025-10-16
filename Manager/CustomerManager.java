@@ -82,5 +82,8 @@ public class CustomerManager extends BaseManager<Customer> {
             addToDistrictIndex(c);
         }
     }
+    
+        
+    
 
 }
