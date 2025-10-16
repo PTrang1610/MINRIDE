@@ -14,13 +14,13 @@ public class Ride implements IEntity {
     public Ride(String rideId, String customerId, String driverId, double distance, double price) {
         //Throw Exception
         if (rideId == null || rideId.trim().isEmpty())
-            throw new IllegalArgumentException("Ride ID cannot be null or empty");
+            throw new IllegalArgumentException("Ride ID không thể không có giá trị hoặc trống rỗng");
         if (customerId == null || customerId.trim().isEmpty())
-            throw new IllegalArgumentException("Customer ID cannot be null or empty");
+            throw new IllegalArgumentException("Customer ID không có giá trị hoặc trống rỗng");
         if (distance < 0)
-            throw new IllegalArgumentException("Distance cannot be negative");
+            throw new IllegalArgumentException("Distance không thể âm");
         if (price < 0)
-            throw new IllegalArgumentException("Price cannot be negative");
+            throw new IllegalArgumentException("Price không thể âm");
 
         this.rideId = rideId;
         this.customerId = customerId;
