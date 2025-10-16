@@ -82,8 +82,8 @@ public class CustomerManager extends BaseManager<Customer> {
             addToDistrictIndex(c);
         }
     }
-    
-        
-    
-
+    public List<Customer> findCustomersByName(String name)
+    {
+        return super.findByName(name);
+    }
 }
