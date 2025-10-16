@@ -146,7 +146,7 @@ public class Test {
                         else {
                             List<Driver> list = driverManager.findByName(key);
                             if (list.isEmpty()) System.out.println("Không tìm thấy tài xế.");
-                            else list.forEach(System.out::println);
+                            else TablePrinter.printDrivers(list);
                         }
                     } catch (Exception e) {
                         System.out.println("Lỗi tìm kiếm: " + e.getMessage());
@@ -344,6 +344,7 @@ public class Test {
             System.out.println("3. Xóa khách hàng");
             System.out.println("4. Liệt kê khách theo quận");
             System.out.println("5. Liệt kê top k khách hàng");
+            System.out.println("6. Tìm kiếm khách hàng theo tên");
             System.out.println("0. Quay lại");
             System.out.print("Chọn: ");
             String opt = sc.nextLine().trim();
@@ -368,6 +369,22 @@ public class Test {
                         TablePrinter.printCustomers(customerManager.getTopKCustomers(k, asc));
                     } catch (Exception e) {
                         System.out.println("Lỗi: " + e.getMessage());
+                    }
+                }
+                case "6" -> {
+                    System.out.print("Nhập ID hoặc tên: ");
+                    String key = sc.nextLine().trim();
+                    // try by id first
+                    try {
+                        Customer c = customerManager.findById(key);
+                        if (c != null) System.out.println(c);
+                        else {
+                            List<Customer> list = customerManager.findByName(key);
+                            if (list.isEmpty()) System.out.println("Không tìm thấy khách hàng.");
+                            else TablePrinter.printCustomers(list);
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Lỗi tìm kiếm: " + e.getMessage());
                     }
                 }
                 default -> System.out.println("Lựa chọn không hợp lệ!");
